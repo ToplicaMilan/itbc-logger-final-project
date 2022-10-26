@@ -35,7 +35,7 @@ public class UserEntity {
     private RoleType role;
 
     @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "log_id")
+    @JoinColumn(name = "id")
     @Column(name = "user_logs")
     private List<LogEntity> userLogs = new ArrayList<>();
 
