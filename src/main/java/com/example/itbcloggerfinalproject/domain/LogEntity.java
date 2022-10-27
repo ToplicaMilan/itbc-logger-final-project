@@ -31,6 +31,8 @@ public class LogEntity {
     @CreatedDate
     private java.util.Date createdDate;
 
+
+
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof LogEntity otherLog)) return false;

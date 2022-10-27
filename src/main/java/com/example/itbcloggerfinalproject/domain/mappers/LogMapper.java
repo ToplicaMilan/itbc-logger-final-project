@@ -8,6 +8,7 @@ import org.mapstruct.Mapping;
 @Mapper
 public interface LogMapper {
 
+//    LogMapper INSTANCE = Mappers.getMapper(LogMapper.class);
     @Mapping(target = "id", ignore = true)
     public abstract LogEntity logDtoToEntity(LogDTO dto);
 

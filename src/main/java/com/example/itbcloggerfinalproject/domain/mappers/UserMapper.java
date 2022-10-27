@@ -8,17 +8,24 @@ import lombok.AccessLevel;
 import lombok.Setter;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Mapper
 public abstract class UserMapper {
+
+//    UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
     @Autowired
     @Setter(AccessLevel.PACKAGE)
     protected PasswordEncoder passwordEncoder;
 
     @Mapping(target = "password", expression = "java(passwordEncoder.encode(dto.getPassword()))")
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "role", ignore = true)
+    @Mapping(target = "userLogs", ignore = true)
     public abstract UserEntity userCreationDtoToEntity(UserCreationDTO dto);
 
     @Mapping(target = "id", ignore = true)
