@@ -1,12 +1,14 @@
 package com.example.itbcloggerfinalproject.domain.dtos;
 
 import com.example.itbcloggerfinalproject.domain.LogType;
+import lombok.Builder;
+import lombok.Data;
 
-import java.time.LocalDate;
-
+@Data
+@Builder(toBuilder = true)
 public class LogDTO {
 
     private String userLog;
     private LogType logType;
-    private LocalDate createdDate;
+    private java.util.Date createdDate;
 }

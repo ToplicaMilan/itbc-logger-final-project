@@ -4,7 +4,6 @@ import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 
 @Entity
 @Table(name = "logs")
@@ -30,7 +29,7 @@ public class LogEntity {
     @Column(name = "created_date", nullable = false, updatable = false)
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
-    private LocalDate createdDate;
+    private java.util.Date createdDate;
 
     public boolean equals(Object o) {
         if (this == o) return true;
