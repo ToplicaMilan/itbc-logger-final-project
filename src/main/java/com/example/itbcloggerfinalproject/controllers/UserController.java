@@ -26,6 +26,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(createTokenDTO(jwt));
     }
 
+    @PostMapping(value = "signin")
     public ResponseEntity<TokenDTO> signIn(SignInDTO dto) {
         String jwt = service.provideToken(dto.getUsername(), dto.getPassword());
         return ResponseEntity.ok(createTokenDTO(jwt));

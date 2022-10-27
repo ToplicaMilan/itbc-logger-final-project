@@ -16,22 +16,23 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Mapper
 public abstract class UserMapper {
 
-//    UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
-
     @Autowired
     @Setter(AccessLevel.PACKAGE)
     protected PasswordEncoder passwordEncoder;
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "role", ignore = true)
+    @Mapping(target = "email", ignore = true)
+    @Mapping(target = "userLogs", ignore = true)
+    public abstract UserEntity signInDtoToEntity(SignInDTO dto);
+//    public UserEntity signInDtoToEntity(SignInDTO dto){
+//        return UserEntity.builder().username(dto.getUsername()).password(passwordEncoder.encode(dto.getPassword()))
+//                .role(RoleType.USER).build();
+//    }
 
     @Mapping(target = "password", expression = "java(passwordEncoder.encode(dto.getPassword()))")
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "role", ignore = true)
     @Mapping(target = "userLogs", ignore = true)
     public abstract UserEntity userCreationDtoToEntity(UserCreationDTO dto);
-
-    @Mapping(target = "id", ignore = true)
-//    public abstract UserEntity signInDtoToEntity(SignInDTO dto);
-    public UserEntity signInDtoToEntity(SignInDTO dto){
-        return UserEntity.builder().username(dto.getUsername()).password(passwordEncoder.encode(dto.getPassword()))
-                .role(RoleType.USER).build();
-    }
 }

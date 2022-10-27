@@ -46,16 +46,16 @@ public class SecurityConfiguration {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests((auth) -> auth
-                        .antMatchers("/users/signup").permitAll()
-                        .antMatchers("/users/signin").hasRole("")
+                        .antMatchers("api/client/signup").permitAll()
+                        .antMatchers("api/client/signin").permitAll()
 //                        .antMatchers(HttpMethod.GET, "/books/**").permitAll()
 //                        .antMatchers(SWAGGER_RESOURCES_WHITELIST).permitAll()
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
                 .oauth2ResourceServer(resourceServer -> resourceServer
                         .jwt()
-//                        .jwtAuthenticationConverter(new RolesClaimConverter(new JwtGrantedAuthoritiesConverter()))
-                        .jwtAuthenticationConverter(new JwtAuthenticationConverter())
+                        .jwtAuthenticationConverter(new RolesClaimConverter(new JwtGrantedAuthoritiesConverter()))
+//                        .jwtAuthenticationConverter(new JwtAuthenticationConverter())
                 )
                 .exceptionHandling(exceptions -> exceptions
                         .authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint())

@@ -1,5 +1,6 @@
 package com.example.itbcloggerfinalproject.services;
 
+import com.example.itbcloggerfinalproject.domain.RoleType;
 import com.example.itbcloggerfinalproject.domain.UserEntity;
 import com.example.itbcloggerfinalproject.domain.dtos.UserCreationDTO;
 import com.example.itbcloggerfinalproject.domain.mappers.UserMapper;
@@ -32,7 +33,7 @@ public class UserService {
     private static final List<String> ADMIN_ROLES = List.of("USER", "ADMIN");
 
     public String createUser(UserCreationDTO dto) {
-        if (EmailValidator.getInstance().isValid(dto.getEmail())) {
+        if (!EmailValidator.getInstance().isValid(dto.getEmail())) {
             throw new InvalidEmailException("Provided email not valid!");
         }
         if (!passwordValidation.validate(dto.getPassword()).isValid()) {
@@ -42,6 +43,7 @@ public class UserService {
             throw new InvalidUsernameException("Username is taken!");
         }
         UserEntity user = repository.save(mapper.userCreationDtoToEntity(dto));
+        user.setRole(RoleType.USER);
         return tokenProvider.create(user, DEFAULT_ROLES);
     }
 
