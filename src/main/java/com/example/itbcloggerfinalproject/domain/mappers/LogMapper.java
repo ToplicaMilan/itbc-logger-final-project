@@ -1,6 +1,6 @@
 package com.example.itbcloggerfinalproject.domain.mappers;
 
-import com.example.itbcloggerfinalproject.domain.LogEntity;
+import com.example.itbcloggerfinalproject.domain.entities.LogEntity;
 import com.example.itbcloggerfinalproject.domain.dtos.LogDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

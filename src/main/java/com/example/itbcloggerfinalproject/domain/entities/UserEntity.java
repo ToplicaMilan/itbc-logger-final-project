@@ -1,4 +1,4 @@
-package com.example.itbcloggerfinalproject.domain;
+package com.example.itbcloggerfinalproject.domain.entities;
 
 import lombok.*;
 

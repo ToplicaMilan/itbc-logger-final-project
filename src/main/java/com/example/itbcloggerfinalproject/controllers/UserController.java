@@ -9,7 +9,6 @@ import com.example.itbcloggerfinalproject.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -38,6 +37,15 @@ public class UserController {
         service.createLog(dto);
         return ResponseEntity.ok(dto.getUserLog());
     }
+
+//    @PostMapping(value = "create_log")
+//    public ResponseEntity<String> createLog(@RequestBody LogDTO dto, Authentication authentication) {
+//        authentication = SecurityContextHolder.getContext().getAuthentication();
+//        String currentPrincipalName = authentication.getName();
+//        UserEntity user = service.getUserByUsername(currentPrincipalName);
+//        user.getUserLogs().add(service.createLog(dto));
+//        return ResponseEntity.ok(dto.getUserLog());
+//    }
 
     private TokenDTO createTokenDTO(String jwt) {
         return TokenDTO.builder().accessToken(jwt).build();

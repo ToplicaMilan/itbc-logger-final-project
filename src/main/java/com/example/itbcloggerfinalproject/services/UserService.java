@@ -1,8 +1,7 @@
 package com.example.itbcloggerfinalproject.services;
 
-import com.example.itbcloggerfinalproject.domain.LogEntity;
-import com.example.itbcloggerfinalproject.domain.RoleType;
-import com.example.itbcloggerfinalproject.domain.UserEntity;
+import com.example.itbcloggerfinalproject.domain.entities.RoleType;
+import com.example.itbcloggerfinalproject.domain.entities.UserEntity;
 import com.example.itbcloggerfinalproject.domain.dtos.LogDTO;
 import com.example.itbcloggerfinalproject.domain.dtos.UserCreationDTO;
 import com.example.itbcloggerfinalproject.domain.mappers.LogMapper;
@@ -21,7 +20,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.Instant;
 import java.util.List;
 
 @Service
@@ -69,7 +67,17 @@ public class UserService {
     }
 
     public void createLog(LogDTO dto) {
-        LogEntity log = logRepository.save(logMapper.logDtoToEntity(dto));
+        logRepository.save(logMapper.logDtoToEntity(dto));
 //        log.setCreatedDate(java.util.Date.from(Instant.now()));
     }
+
+//    public UserEntity getUserByUsername(String username) {
+//        return userRepository.findByUsername(username)
+//                .orElseThrow(() -> new InvalidCredentialsException("Invalid username or password!"));
+//    }
+//
+//    public LogEntity createLog(LogDTO dto) {
+//        return logRepository.save(logMapper.logDtoToEntity(dto));
+////        log.setCreatedDate(java.util.Date.from(Instant.now()));
+//    }
 }

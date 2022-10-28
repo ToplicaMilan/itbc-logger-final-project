@@ -1,6 +1,6 @@
 package com.example.itbcloggerfinalproject.security;
 
-import com.example.itbcloggerfinalproject.domain.UserEntity;
+import com.example.itbcloggerfinalproject.domain.entities.UserEntity;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;

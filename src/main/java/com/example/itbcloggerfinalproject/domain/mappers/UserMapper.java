@@ -1,16 +1,13 @@
 package com.example.itbcloggerfinalproject.domain.mappers;
 
-import com.example.itbcloggerfinalproject.domain.RoleType;
-import com.example.itbcloggerfinalproject.domain.UserEntity;
+import com.example.itbcloggerfinalproject.domain.entities.UserEntity;
 import com.example.itbcloggerfinalproject.domain.dtos.SignInDTO;
 import com.example.itbcloggerfinalproject.domain.dtos.UserCreationDTO;
 import lombok.AccessLevel;
 import lombok.Setter;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Mapper

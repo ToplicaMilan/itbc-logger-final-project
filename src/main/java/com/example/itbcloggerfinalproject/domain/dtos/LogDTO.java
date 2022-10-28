@@ -1,6 +1,6 @@
 package com.example.itbcloggerfinalproject.domain.dtos;
 
-import com.example.itbcloggerfinalproject.domain.LogType;
+import com.example.itbcloggerfinalproject.domain.entities.LogType;
 import lombok.Builder;
 import lombok.Data;
 
