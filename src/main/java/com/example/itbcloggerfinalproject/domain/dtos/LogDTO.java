@@ -10,5 +10,4 @@ public class LogDTO {
 
     private String userLog;
     private LogType logType;
-    private java.util.Date createdDate;
 }

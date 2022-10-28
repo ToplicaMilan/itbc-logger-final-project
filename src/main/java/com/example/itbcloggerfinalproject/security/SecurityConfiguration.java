@@ -51,6 +51,7 @@ public class SecurityConfiguration {
 //                        .antMatchers(HttpMethod.GET, "/books/**").permitAll()
 //                        .antMatchers(SWAGGER_RESOURCES_WHITELIST).permitAll()
                                 .anyRequest().permitAll()
+
                 )
                 .oauth2ResourceServer(resourceServer -> resourceServer
                                 .jwt()

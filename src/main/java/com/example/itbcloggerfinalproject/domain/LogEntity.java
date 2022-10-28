@@ -27,11 +27,9 @@ public class LogEntity {
     private LogType logType;
 
     @Column(name = "created_date", nullable = false, updatable = false)
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.TIME)
     @CreatedDate
     private java.util.Date createdDate;
-
-
 
     public boolean equals(Object o) {
         if (this == o) return true;
