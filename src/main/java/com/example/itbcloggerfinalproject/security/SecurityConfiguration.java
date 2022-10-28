@@ -31,6 +31,13 @@ import java.security.interfaces.RSAPublicKey;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfiguration {
 
+    private static final String[] SWAGGER_RESOURCES_WHITELIST = {
+            "/authenticate",
+            "/swagger-resources/**",
+            "/swagger-ui/**",
+            "/v3/api-docs",
+            "/webjars/**"
+    };
 
     @Value("${jwt.key.public}")
     private RSAPublicKey publicKey;
@@ -51,6 +58,7 @@ public class SecurityConfiguration {
                                 .antMatchers("/api/clients/create_log").hasRole("USER")
                                 .antMatchers("/api/clients/all").hasRole("USER")
                                 .antMatchers("/api/clients").hasRole("ADMIN")
+                                .antMatchers(SWAGGER_RESOURCES_WHITELIST).permitAll()
                                 .antMatchers("/reset-password/{clientId}").hasRole("ADMIN")
                                 .antMatchers("/h2-console", "/h2-console/**").permitAll()
                                 .anyRequest().authenticated()

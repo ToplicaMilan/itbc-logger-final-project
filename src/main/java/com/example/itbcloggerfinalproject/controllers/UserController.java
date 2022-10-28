@@ -7,8 +7,15 @@ import com.example.itbcloggerfinalproject.domain.dtos.UserInfoDTO;
 import com.example.itbcloggerfinalproject.domain.entities.LogType;
 import com.example.itbcloggerfinalproject.security.TokenDTO;
 import com.example.itbcloggerfinalproject.domain.services.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,18 +30,36 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping(value = "/signup")
+    @Operation(summary = "Create account.")
+    @ApiResponse(responseCode = "201", content = {
+            @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = TokenDTO.class))
+    })
+    @PostMapping(value = "/signup", consumes = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<TokenDTO> signUp(@RequestBody UserCreationDTO dto) {
         String jwt = userService.createUser(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(createTokenDTO(jwt));
     }
 
-    @PostMapping(value = "/signin")
+    @Operation(summary = "Obtain access token.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", content = {
+                    @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = TokenDTO.class))
+            }),
+            @ApiResponse(responseCode = "401", description = "Invalid username or password!")
+    })
+    @PostMapping(value = "/signin", consumes = {MediaType.APPLICATION_JSON_VALUE})
     public ResponseEntity<TokenDTO> signIn(@RequestBody SignInDTO dto) {
         String jwt = userService.provideToken(dto.getUsername(), dto.getPassword());
         return ResponseEntity.ok(createTokenDTO(jwt));
     }
 
+    @Operation(summary = "Create log.", security = { @SecurityRequirement(name = "JWT") })
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Log created", content = {
+                    @Content(mediaType = MediaType.APPLICATION_JSON_VALUE, schema = @Schema(implementation = String.class))
+            }),
+            @ApiResponse(responseCode = "401", description = "Unauthorized.")
+    })
     @PostMapping(value = "/create_log")
     @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<String> createLog(@RequestBody LogDTO dto) {
@@ -43,8 +68,6 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(dto.getUserLog());
     }
 
-    @GetMapping(value = "/all")
-    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<List<LogDTO>> getLogsByType(@RequestBody LogType logType) {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body((userService.getLogsByType(logType)));
     }

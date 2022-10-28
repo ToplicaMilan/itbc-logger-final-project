@@ -76,6 +76,11 @@
             <artifactId>passay</artifactId>
             <version>1.6.2</version>
         </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>${springfox-boot-starter.version}</version>
+        </dependency>
     </dependencies>
 
     <build>
