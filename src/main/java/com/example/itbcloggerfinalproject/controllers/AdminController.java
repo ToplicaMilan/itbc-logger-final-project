@@ -28,4 +28,5 @@ public class AdminController {
     public ResponseEntity<String> changePassword(@RequestBody String password, @PathVariable(name = "id") Long id) {
         adminService.changePassword(id, password);
         return ResponseEntity.status(HttpStatus.ACCEPTED).body("Password has been changed!");
-    }}
+    }
+}

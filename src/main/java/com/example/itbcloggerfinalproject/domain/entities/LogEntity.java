@@ -34,6 +34,8 @@ public class LogEntity {
     @ManyToOne
     private UserEntity user;
 
+//    https://vladmihalcea.com/the-best-way-to-implement-equals-hashcode-and-tostring-with-jpa-and-hibernate/
+
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof LogEntity otherLog)) return false;

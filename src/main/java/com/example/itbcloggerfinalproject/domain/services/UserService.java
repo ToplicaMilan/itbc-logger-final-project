@@ -23,6 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -83,9 +84,11 @@ public class UserService {
         logRepository.save(log);
     }
 
-//    public List<LogEntity> getLogsByUserId(String username) {
-//        UserEntity user = getUserByUsername(username);
-//        user.getUserLogs()
-//        return logRepository.findAllByUserIdAndLogType(user.getId(), LogType logtype);
-//    }
+    public List<LogDTO> getLogsByType(LogType logType) {
+        List<LogDTO> logDtos = new ArrayList<>();
+        for (LogEntity log : logRepository.findAll()) {
+            logDtos.add(logMapper.logEntityToDto(log));
+        }
+        return logDtos;
+    }
 }

@@ -22,7 +22,6 @@ import java.util.List;
 public class AdminService {
 
     private final UserRepository userRepository;
-    private final LogRepository logRepository;
     public final UserMapper userMapper;
     public final LogMapper logMapper;
     private final PasswordEncoder passwordEncoder;
@@ -40,4 +39,6 @@ public class AdminService {
                 .orElseThrow(() -> new UserNotFoundException("User not found!"));
         user.setPassword(passwordEncoder.encode(password));
     }
+
+    //TODO implement admin method for deleting users
 }
