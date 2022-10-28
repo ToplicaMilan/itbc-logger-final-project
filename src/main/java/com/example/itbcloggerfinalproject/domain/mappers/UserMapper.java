@@ -1,5 +1,6 @@
 package com.example.itbcloggerfinalproject.domain.mappers;
 
+import com.example.itbcloggerfinalproject.domain.dtos.UserInfoDTO;
 import com.example.itbcloggerfinalproject.domain.entities.UserEntity;
 import com.example.itbcloggerfinalproject.domain.dtos.SignInDTO;
 import com.example.itbcloggerfinalproject.domain.dtos.UserCreationDTO;
@@ -22,14 +23,12 @@ public abstract class UserMapper {
     @Mapping(target = "email", ignore = true)
     @Mapping(target = "userLogs", ignore = true)
     public abstract UserEntity signInDtoToEntity(SignInDTO dto);
-//    public UserEntity signInDtoToEntity(SignInDTO dto){
-//        return UserEntity.builder().username(dto.getUsername()).password(passwordEncoder.encode(dto.getPassword()))
-//                .role(RoleType.USER).build();
-//    }
 
     @Mapping(target = "password", expression = "java(passwordEncoder.encode(dto.getPassword()))")
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "role", ignore = true)
     @Mapping(target = "userLogs", ignore = true)
     public abstract UserEntity userCreationDtoToEntity(UserCreationDTO dto);
+
+    public abstract UserInfoDTO userEntityToInfoDto(UserEntity entity);
 }

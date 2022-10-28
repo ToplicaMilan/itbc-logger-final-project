@@ -11,6 +11,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class TokenDTO {
 
-//    @ApiModelProperty(value = "JWT for authenticated user.")
     private String accessToken;
 }

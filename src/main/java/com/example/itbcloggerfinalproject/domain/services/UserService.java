@@ -1,5 +1,7 @@
-package com.example.itbcloggerfinalproject.services;
+package com.example.itbcloggerfinalproject.domain.services;
 
+import com.example.itbcloggerfinalproject.domain.entities.LogEntity;
+import com.example.itbcloggerfinalproject.domain.entities.LogType;
 import com.example.itbcloggerfinalproject.domain.entities.RoleType;
 import com.example.itbcloggerfinalproject.domain.entities.UserEntity;
 import com.example.itbcloggerfinalproject.domain.dtos.LogDTO;
@@ -16,6 +18,7 @@ import com.example.itbcloggerfinalproject.security.PasswordValidation;
 import com.example.itbcloggerfinalproject.security.TokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.validator.routines.EmailValidator;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,8 +38,8 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final PasswordValidation passwordValidation;
 
-    private static final List<String> DEFAULT_ROLES = List.of("USER");
-    private static final List<String> ADMIN_ROLES = List.of("USER", "ADMIN");
+    private static final List<String> DEFAULT_ROLES = List.of("ROLE_USER");
+    private static final List<String> ADMIN_ROLES = List.of("USER", "ROLE_ADMIN");
 
     public String createUser(UserCreationDTO dto) {
         if (!EmailValidator.getInstance().isValid(dto.getEmail())) {
@@ -66,18 +69,23 @@ public class UserService {
         return tokenProvider.create(user, DEFAULT_ROLES);
     }
 
-    public void createLog(LogDTO dto) {
-        logRepository.save(logMapper.logDtoToEntity(dto));
-//        log.setCreatedDate(java.util.Date.from(Instant.now()));
+    public UserEntity getUserByUsername(String username) {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new InvalidCredentialsException("Invalid username or password!"));
     }
 
-//    public UserEntity getUserByUsername(String username) {
-//        return userRepository.findByUsername(username)
-//                .orElseThrow(() -> new InvalidCredentialsException("Invalid username or password!"));
-//    }
-//
-//    public LogEntity createLog(LogDTO dto) {
-//        return logRepository.save(logMapper.logDtoToEntity(dto));
-////        log.setCreatedDate(java.util.Date.from(Instant.now()));
+    public void createLog(LogDTO dto, String username) {
+        if (dto.getUserLog().length() > 1024) {
+            throw new InvalidCredentialsException("Log message is too large!");
+        }
+        LogEntity log = logMapper.logDtoToEntity(dto);
+        log.setUser(getUserByUsername(username));
+        logRepository.save(log);
+    }
+
+//    public List<LogEntity> getLogsByUserId(String username) {
+//        UserEntity user = getUserByUsername(username);
+//        user.getUserLogs()
+//        return logRepository.findAllByUserIdAndLogType(user.getId(), LogType logtype);
 //    }
 }

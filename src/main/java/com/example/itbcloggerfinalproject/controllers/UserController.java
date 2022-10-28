@@ -3,21 +3,21 @@ package com.example.itbcloggerfinalproject.controllers;
 import com.example.itbcloggerfinalproject.domain.dtos.LogDTO;
 import com.example.itbcloggerfinalproject.domain.dtos.SignInDTO;
 import com.example.itbcloggerfinalproject.domain.dtos.UserCreationDTO;
-import com.example.itbcloggerfinalproject.domain.mappers.UserMapper;
 import com.example.itbcloggerfinalproject.security.TokenDTO;
-import com.example.itbcloggerfinalproject.services.UserService;
+import com.example.itbcloggerfinalproject.domain.services.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/client")
+@RequestMapping("/api/clients")
 @AllArgsConstructor
 public class UserController {
 
     private final UserService service;
-    private final UserMapper mapper;
 
     @PostMapping(value = "/signup")
 //    @PreAuthorize("hasRole('ROLE_USER')")
@@ -33,9 +33,11 @@ public class UserController {
     }
 
     @PostMapping(value = "create_log")
+    @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<String> createLog(@RequestBody LogDTO dto) {
-        service.createLog(dto);
-        return ResponseEntity.ok(dto.getUserLog());
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        service.createLog(dto, username);
+        return ResponseEntity.status(HttpStatus.CREATED).body(dto.getUserLog());
     }
 
 //    @PostMapping(value = "create_log")

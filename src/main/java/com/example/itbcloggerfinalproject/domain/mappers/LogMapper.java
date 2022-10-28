@@ -11,6 +11,7 @@ import java.time.Instant;
 public abstract class LogMapper {
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "user", ignore = true)
 //    @Mapping(target = "createdDate", ignore = true)
     public LogEntity logDtoToEntity(LogDTO dto){
          return LogEntity.builder()
