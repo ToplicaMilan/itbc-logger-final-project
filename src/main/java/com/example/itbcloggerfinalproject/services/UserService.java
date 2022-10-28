@@ -9,6 +9,7 @@ import com.example.itbcloggerfinalproject.domain.mappers.LogMapper;
 import com.example.itbcloggerfinalproject.domain.mappers.UserMapper;
 import com.example.itbcloggerfinalproject.exceptions.InvalidCredentialsException;
 import com.example.itbcloggerfinalproject.exceptions.InvalidEmailException;
+import com.example.itbcloggerfinalproject.exceptions.InvalidPasswordException;
 import com.example.itbcloggerfinalproject.exceptions.InvalidUsernameException;
 import com.example.itbcloggerfinalproject.repositories.LogRepository;
 import com.example.itbcloggerfinalproject.repositories.UserRepository;
@@ -44,7 +45,7 @@ public class UserService {
             throw new InvalidEmailException("Provided email not valid!");
         }
         if (!passwordValidation.validate(dto.getPassword()).isValid()) {
-            throw new InvalidCredentialsException("Invalid username or password!");
+            throw new InvalidPasswordException("Invalid password!");
         }
         if (userRepository.existsByUsername(dto.getUsername())) {
             throw new InvalidUsernameException("Username is taken!");

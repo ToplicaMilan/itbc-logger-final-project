@@ -46,24 +46,25 @@ public class SecurityConfiguration {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests((auth) -> auth
-                                .antMatchers("api/client/signup").permitAll()
-                                .antMatchers("api/client/signin").permitAll()
+                                .antMatchers("/api/client/signup").permitAll()
+                                .antMatchers("/api/client/signin").permitAll()
+                                .antMatchers("/api/client/create_log").permitAll()
+                                .antMatchers("/h2-console", "/h2-console/**").permitAll()
 //                        .antMatchers(HttpMethod.GET, "/books/**").permitAll()
 //                        .antMatchers(SWAGGER_RESOURCES_WHITELIST).permitAll()
-                                .anyRequest().permitAll()
+                                .anyRequest().authenticated()
 
                 )
                 .oauth2ResourceServer(resourceServer -> resourceServer
                                 .jwt()
                                 .jwtAuthenticationConverter(new RolesClaimConverter(new JwtGrantedAuthoritiesConverter()))
-//                        .jwtAuthenticationConverter(new JwtAuthenticationConverter())
+//                                .jwtAuthenticationConverter(new JwtAuthenticationConverter())
                 )
                 .exceptionHandling(exceptions -> exceptions
                         .authenticationEntryPoint(new BearerTokenAuthenticationEntryPoint())
                         .accessDeniedHandler(new BearerTokenAccessDeniedHandler())
                 )
-                .headers().frameOptions().disable()
-        ;
+                .headers().frameOptions().disable();
         return http.build();
     }
 

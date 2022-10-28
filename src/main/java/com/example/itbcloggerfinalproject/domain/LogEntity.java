@@ -1,6 +1,7 @@
 package com.example.itbcloggerfinalproject.domain;
 
 import lombok.*;
+import org.mapstruct.control.MappingControl;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
@@ -22,7 +23,7 @@ public class LogEntity {
     @Column(name = "user_log")
     private String userLog;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(value = EnumType.STRING)
     @Column(name = "log_type")
     private LogType logType;
 
@@ -30,6 +31,9 @@ public class LogEntity {
     @Temporal(TemporalType.TIME)
     @CreatedDate
     private java.util.Date createdDate;
+
+    @ManyToOne
+    private UserEntity user;
 
     public boolean equals(Object o) {
         if (this == o) return true;

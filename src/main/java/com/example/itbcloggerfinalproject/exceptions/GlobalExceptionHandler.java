@@ -14,9 +14,21 @@ public class GlobalExceptionHandler {
         return createErrorMessage(e.getMessage());
     }
 
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(InvalidEmailException.class)
+    public ErrorMessage invalidEmailException(InvalidEmailException e) {
+        return createErrorMessage(e.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(InvalidPasswordException.class)
     public ErrorMessage invalidPasswordException(InvalidPasswordException e) {
+        return createErrorMessage(e.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(InvalidCredentialsException.class)
+    public ErrorMessage invalidCredentialsException(InvalidCredentialsException e) {
         return createErrorMessage(e.getMessage());
     }
 

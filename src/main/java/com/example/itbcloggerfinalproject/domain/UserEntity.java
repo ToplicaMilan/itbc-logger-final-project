@@ -34,8 +34,7 @@ public class UserEntity {
     @Column(name = "role")
     private RoleType role;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     @Column(name = "user_logs")
     private List<LogEntity> userLogs = new ArrayList<>();
 
