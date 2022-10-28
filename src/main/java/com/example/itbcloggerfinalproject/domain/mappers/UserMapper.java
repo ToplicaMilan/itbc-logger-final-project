@@ -19,14 +19,14 @@ public abstract class UserMapper {
     protected PasswordEncoder passwordEncoder;
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "role", ignore = true)
+    @Mapping(target = "roleType", ignore = true)
     @Mapping(target = "email", ignore = true)
     @Mapping(target = "userLogs", ignore = true)
     public abstract UserEntity signInDtoToEntity(SignInDTO dto);
 
     @Mapping(target = "password", expression = "java(passwordEncoder.encode(dto.getPassword()))")
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "role", ignore = true)
+    @Mapping(target = "roleType", ignore = true)
     @Mapping(target = "userLogs", ignore = true)
     public abstract UserEntity userCreationDtoToEntity(UserCreationDTO dto);
 

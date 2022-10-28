@@ -35,7 +35,7 @@ public class UserController {
         return ResponseEntity.ok(createTokenDTO(jwt));
     }
 
-    @PostMapping(value = "create_log")
+    @PostMapping(value = "/create_log")
     @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<String> createLog(@RequestBody LogDTO dto) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -43,7 +43,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.CREATED).body(dto.getUserLog());
     }
 
-    @PostMapping(value = "create_log")
+    @GetMapping(value = "/all")
     @PreAuthorize("hasRole('ROLE_USER')")
     public ResponseEntity<List<LogDTO>> getLogsByType(@RequestBody LogType logType) {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body((userService.getLogsByType(logType)));

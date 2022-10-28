@@ -53,7 +53,7 @@ public class UserService {
             throw new InvalidUsernameException("Username is taken!");
         }
         UserEntity user = userRepository.save(userMapper.userCreationDtoToEntity(dto));
-        user.setRole(RoleType.USER);
+        user.setRoleType(RoleType.USER);
         return tokenProvider.create(user, DEFAULT_ROLES);
     }
 
@@ -64,7 +64,7 @@ public class UserService {
         if (!passwordEncoder.matches(password, user.getPassword())) {
             throw new InvalidCredentialsException("Invalid username or password!");
         }
-        if (user.getRole().toString().equals("ADMIN")) {
+        if (user.getRoleType().toString().equals("ADMIN")) {
             return tokenProvider.create(user, ADMIN_ROLES);
         }
         return tokenProvider.create(user, DEFAULT_ROLES);

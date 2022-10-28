@@ -32,7 +32,7 @@ public class UserEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(name = "role")
-    private RoleType role;
+    private RoleType roleType;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     @Column(name = "user_logs")
