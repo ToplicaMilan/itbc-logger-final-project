@@ -72,7 +72,6 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body((userService.getLogsByType(logType)));
     }
 
-
     private TokenDTO createTokenDTO(String jwt) {
         return TokenDTO.builder().accessToken(jwt).build();
     }

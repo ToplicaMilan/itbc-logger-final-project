@@ -21,6 +21,5 @@ public abstract class LogMapper {
                 .build();
     }
 
-
     public abstract LogDTO logEntityToDto(LogEntity log);
 }
