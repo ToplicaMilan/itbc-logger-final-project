@@ -5,11 +5,11 @@
 This project is my final project for IT Bootcamp. The requirements for this project were
 to create a Spring-based web application that persists users in a database and implements 
 role-based access control for certain endpoints. The application should also allow users to
-register and log in, and return a JWT token accordingly. Authenticated users with the "User" role
-should be able to create logs, retrieve their own logs, and delete them. Authenticated users with
-the "admin" role should be able to delete other users, retrieve logs for a specific user,and change
-user passwords. To implement the authentication and authorizationaspects of the application,
-I used Spring Security with OAuth2 and JWT.
+register and log in, and return a JWT token accordingly. Authenticated users with the "USER"
+role should be able to create logs, retrieve their own logs, and delete them. Authenticated
+users with the "ADMIN" role should be able to delete other users, retrieve logs for a specific
+user, and change user passwords. To implement the authentication and authorizationaspects of
+the application, I used Spring Security with OAuth2 and JWT.
 
 ## My Experience
 
